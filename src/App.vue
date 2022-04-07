@@ -1,15 +1,18 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
   <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <course-intro id="poop" name="python oop" duration=35 current="true"></course-intro>
+  <course-intro id="bdpy" name="python and big data" duration=35 current="false"></course-intro>
 </template>
 
 <script>
+import CourseIntro from './components/CourseIntro.vue'
 import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    CourseIntro
   }
 }
 </script>
