@@ -1,6 +1,6 @@
 <template>
   <li>
-    <h2>{{ id }}-{{isCurrent}}</h2>
+    <h2>{{ id }}-{{ isCurrent }}</h2>
     <button @click="toggleCurrent">is current</button>
     <button @click="toggleCourseDetail">Show detail</button>
     <ul v-if="detailsVisible">
@@ -11,7 +11,15 @@
 </template>
 <script>
 export default {
-  props: ["id", "name", "duration", "current"],
+  //props: { id: String, name: String, duration: Number, current: Boolean },
+  props: {
+    id: { type: String, required: true },
+    name: { type: String, required: true },
+    duration: { type: Number, required: true, validator: function(value) {
+      return value > 7;
+    } },
+    current: { type: Boolean, required: false, default: false },
+  },
   data() {
     return {
       isCurrent: this.current,
