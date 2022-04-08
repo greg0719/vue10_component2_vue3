@@ -4,6 +4,8 @@
     <h2>{{ id }}-{{ isCurrent }}</h2>
     <button @click="toggleCurrent">is current</button>
     <button @click="toggleCourseDetail">Show detail</button>
+    <br />
+    <button @click="deleteCourse">Delete Course</button>
     <ul v-if="detailsVisible">
       <li>{{ name }}</li>
       <li>{{ duration }}</li>
@@ -16,10 +18,32 @@ export default {
   props: {
     id: { type: String, required: true },
     name: { type: String, required: true },
-    duration: { type: Number, required: true, validator: function(value) {
-      return value > 7;
-    } },
+    duration: {
+      type: Number,
+      required: true,
+      validator: function (value) {
+        return value > 7;
+      },
+    },
     current: { type: Boolean, required: false, default: false },
+  },
+  emits: {
+    "toggle-current": function (id) {
+      if (id) {
+        return true;
+      } else {
+        console.warn("oops, id is missing");
+        return false;
+      }
+    },
+    "delete-current": function (id) {
+      if (id) {
+        return true;
+      } else {
+        console.warn("oops, id is missing");
+        return false;
+      }
+    },
   },
   data() {
     return {
@@ -33,8 +57,12 @@ export default {
     },
     toggleCurrent() {
       this.isCurrent = !this.isCurrent;
-      
-      this.$emit('toggle-current', this.id);
+
+      this.$emit("toggle-current", this.id);
+    },
+    deleteCourse() {
+      console.log(`delete course id ${this.id}`);
+      this.$emit("delete-current", this.id);
     },
   },
 };
