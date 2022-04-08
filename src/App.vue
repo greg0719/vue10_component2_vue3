@@ -1,31 +1,39 @@
 <template>
-  <HelloWorld msg="Welcome to Your Vue.js App" />
   <course-intro
-    id="poop"
-    :name="course_name1"
-    :duration="35"
-    :current="true"
-  ></course-intro>
-  <course-intro
-    id="bdpy"
-    :name="course_name2"
-    :duration="35"
-    :current="false"
+    v-for="course in courses"
+    :key="course.id"
+    :id="course.id"
+    :name="course.name"
+    :duration="course.duration"
+    :current="course.current"
+    @toggle-current="toggleCurrentStatus"
   ></course-intro>
 </template>
 
 <script>
-import CourseIntro from "./components/CourseIntro.vue";
-import HelloWorld from "./components/HelloWorld.vue";
-
 export default {
   name: "App",
-  components: {
-    HelloWorld,
-    CourseIntro,
-  },
   data() {
-    return { course_name1: "POOP-data", course_name2: "BDPY-data" };
+    return {
+      courses: [
+        { id: "poop", name: "python oop", duration: 35, current: true },
+        {
+          id: "bdpy",
+          name: "python and big data",
+          duration: 35,
+          current: false,
+        },
+      ],
+    };
+  },
+  methods: {
+    toggleCurrentStatus(id) {
+      console.log(`should change id:${id}`);
+      const couser = this.courses.find((course) => course.id === id);
+      console.log(`before change :${couser.current}`);
+      couser.current = !couser.current;
+      console.log(`after change :${couser.current}`);
+    },
   },
 };
 </script>
